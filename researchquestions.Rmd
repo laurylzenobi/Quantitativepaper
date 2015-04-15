@@ -17,7 +17,12 @@ Due to the small sample size that is expected for these topics and study area, t
 
 
 Codes from the JSTORr package will be utilized for the statistical analysis. Potential codes include the following:
-```{r}
+```{r Data_ingest}
+library(JSTORr)
+multiple_archives <- JSTORr ::: JSTOR_unpack_multiple_archives()
+```
+
+```{r useful_functions}
 JSTOR_2words(multiple_archives, "sago", "ceramics")
 JSTOR_2wordcor(multiple_archives, "sago", "forna")
 JSTOR_findassocs(multiple_archives, Vector of terms, "sago")
