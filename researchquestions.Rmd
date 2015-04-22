@@ -1,8 +1,9 @@
 ---
 title: "Research Questions"
 author: "Lauryl Zenobi"
+<<<<<<< HEAD
 date: "April 22, 2015"
-output: html_document
+
 ---
 
 For the purpose of this quantitative project I want to explore the relationship between several sets of words. This quantitative data will be used to improve upon the background and theoretical framework of my dissertation proposal. There is also the potential that this data will provide methodological approaches to the quantitative portion of my dissertation research. 
@@ -18,9 +19,9 @@ Questions that I think would be well-suited to this type of research are listed 
 Due to the small sample size that is expected for these topics and study area, this project will consists of two parts. The first is a statistical analysis of the frequency of the terms identified in the preceding questions. The second part will consist of a close reading of selected articles of interest. The low numbers expected from the statistical analysis necessitate the close readings, which will be beneficial in answering higher level questions about the theoretical frameworks that were utilized in the articles of interest. 
 
 
-Codes from the JSTORr package will be utilized for the statistical analysis. Potential codes include the following:
 ```{r Data_ingest}
 library(JSTORr)
+<<<<<<< HEAD
 multiple_archives <- JSTORr ::: JSTOR_unpack_multiple_archives()
 ```
 
@@ -52,4 +53,3 @@ In preparation of exploring the additional reseach questions listed above, it wi
 *Economic Botany
 *Botanical Review
 *Australian Archaeology
-
