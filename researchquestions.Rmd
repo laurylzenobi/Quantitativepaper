@@ -20,12 +20,14 @@ Due to the small sample size that is expected for these topics and study area, t
 
 ```{r Data_ingest}
 library(JSTORr)
-multiple_archives <- JSTORr ::: JSTOR_unpack_multiple_archives()
+#multiple_archives <- JSTORr ::: JSTOR_unpack_multiple_archives(mydir = "Data")
+#save(multiple_archives, file="Data/multiple_archives.RData")
+load("Data/multiple_archives.RData")
 ```
 
 Codes from the JSTORr package will be utilized for the statistical analysis. Potential codes include the following:
 ```{r potential_codes}
-JSTOR_2word(multiple_archives, "sago", "ceramics")
+JSTOR_2words(multiple_archives, "sago", "ceramics")
 JSTOR_2wordcor(multiple_archives, "sago", "forna")
 JSTOR_findassocs(multiple_archives, Vector of terms, "sago")
 ```
@@ -38,7 +40,7 @@ JSTOR_2wordcor(multiple_archives, "commodity", "ceramics")
 JSTOR_2wordcor(multiple_archives, "standardization", "ceramics")
 ```
 
-The results of these plots indicate that while there may not be a large number of instances in which these sets of words are appear together in the literature, each plot demonstrates that of the instances in which they do appear, there are a number of in which the sets of words are strongly correlated. This suggests, and close readings can verify this, that the data set for this research question would be rich enough to justify a quantitative method supplemented by a close readings of selected articles. 
+The results of these plots indicate that while there may not be a large number of instances in which these sets of words appear together in the literature, each plot demonstrates that of the instances in which they do appear, there are a number the sets of words are strongly correlated. This suggests, and close readings can verify this, that the data set for this research question would be rich enough to justify a quantitative method supplemented by a close readings of selected articles. 
 
 In preparation of exploring the additional reseach questions listed above, it will be necessary to collect additional data from journals not represented in the current dataset. Terms such as sago, forna, *Metroxylon sagu*, *forna*, and historical terms such as "VOC" or "Spice Trade" are not likely to be found in the current dataset. Rather, these will require more region and topic specific journals. As such, the following list of journals will be explored in order to determine the potential of the remaining research questions:  
 *Anthropology in Oceania*  
