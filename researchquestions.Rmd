@@ -1,0 +1,55 @@
+---
+title: "Research Questions"
+author: "Lauryl Zenobi"
+date: "April 22, 2015"
+output: html_document
+---
+
+For the purpose of this quantitative project I want to explore the relationship between several sets of words. This quantitative data will be used to improve upon the background and theoretical framework of my dissertation proposal. There is also the potential that this data will provide methodological approaches to the quantitative portion of my dissertation research. 
+
+Questions that I think would be well-suited to this type of research are listed below.
+
+1. What is the relationships between standardization and ceramics in the archaeological literature? Has this relationship changed over time? What theoretical frameworks support these types of analyses?
+2. What is the relationship between sago palm and ceramic analyses in Indonesia? Specifically, what is the statistical relationship between the use of terms such as sago, sago starch, ceramics, and forna (ceramic ovens) in the archaeological literature?
+3. What is the relationship between theories about colonial contact and acculturation and changes in ceramic assemblages? Specifically for Indonesia, how do these topics present in the archaeological literature?
+4. How has the spice trade and the sago trade been analyzed in the archaeological literature? What is the relationship between terms such as spice trade, nutmeg, cloves, and sago? 
+
+
+Due to the small sample size that is expected for these topics and study area, this project will consists of two parts. The first is a statistical analysis of the frequency of the terms identified in the preceding questions. The second part will consist of a close reading of selected articles of interest. The low numbers expected from the statistical analysis necessitate the close readings, which will be beneficial in answering higher level questions about the theoretical frameworks that were utilized in the articles of interest. 
+
+
+Codes from the JSTORr package will be utilized for the statistical analysis. Potential codes include the following:
+```{r Data_ingest}
+library(JSTORr)
+multiple_archives <- JSTORr ::: JSTOR_unpack_multiple_archives()
+```
+
+Codes from the JSTORr package will be utilized for the statistical analysis. Potential codes include the following:
+```{r potential_codes}
+JSTOR_2word(multiple_archives, "sago", "ceramics")
+JSTOR_2wordcor(multiple_archives, "sago", "forna")
+JSTOR_findassocs(multiple_archives, Vector of terms, "sago")
+```
+
+Preliminary testing of the questions above is necessary to determine which research avenue is the most likely to have a sufficiently sized data set and to produce the most useful information for the purpose of this study. I will start this process with the first potential research question (see above). The first task is to establish the frequency of key words that are used in the first research question. "Commodity", "Standardization", and "Ceramics" were analyzed for their correlation over time. 
+
+```{r plot2wordcor, fig.width=4, fig.height=5, message=F}
+JSTOR_2wordcor(multiple_archives, "commodity", "standardization")
+JSTOR_2wordcor(multiple_archives, "commodity", "ceramics")
+JSTOR_2wordcor(multiple_archives, "standardization", "ceramics")
+```
+
+The results of these plots indicate that while there may not be a large number of instances in which these sets of words are appear together in the literature, each plot demonstrates that of the instances in which they do appear, there are a number of in which the sets of words are strongly correlated. This suggests, and close readings can verify this, that the data set for this research question would be rich enough to justify a quantitative method supplemented by a close readings of selected articles. 
+
+In preparation of exploring the additional reseach questions listed above, it will be necessary to collect additional data from journals not represented in the current dataset. Terms such as sago, forna, *Metroxylon sagu*, *forna*, and historical terms such as "VOC" or "Spice Trade" are not likely to be found in the current dataset. Rather, these will require more region and topic specific journals. As such, the following list of journals will be explored in order to determine the potential of the remaining research questions:
+*Anthropology in Oceania
+*Archaeology in Oceania
+*Journal of Biogeography
+*Current Anthropology
+*Human Ecology
+*World Archaeology
+*Oceania
+*Economic Botany
+*Botanical Review
+*Australian Archaeology
+
