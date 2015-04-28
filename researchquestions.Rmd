@@ -39,7 +39,7 @@ JSTOR_2wordcor(multiple_archives, "commodity", "standardization")
 JSTOR_2wordcor(multiple_archives, "commodity", "ceramics")
 JSTOR_2wordcor(multiple_archives, "standardization", "ceramics")
 ```
-
+  
 The results of these plots indicate that while there may not be a large number of instances in which these sets of words appear together in the literature, each plot demonstrates that of the instances in which they do appear, there are a number the sets of words are strongly correlated. This suggests, and close readings can verify this, that the data set for this research question would be rich enough to justify a quantitative method supplemented by a close readings of selected articles. 
 
 In preparation of exploring the additional reseach questions listed above, it will be necessary to collect additional data from journals not represented in the current dataset. Terms such as sago, forna, *Metroxylon sagu*, *forna*, and historical terms such as "VOC" or "Spice Trade" are not likely to be found in the current dataset. Rather, these will require more region and topic specific journals. As such, the following list of journals will be explored in order to determine the potential of the remaining research questions:  
@@ -53,3 +53,11 @@ In preparation of exploring the additional reseach questions listed above, it wi
 *Economic Botany*  
 *Botanical Review*  
 *Australian Archaeology*  
+
+```{r cluster analysis}
+nouns <-JSTOR_dtmofnouns(multiple_archives)
+JSTOR_freqwords(multiple_archives, nouns)
+JSTOR_clusterbywords(nouns, "commodity")
+JSTOR_clusterbywords(nouns, c("ceramics","spice"))
+```
+
