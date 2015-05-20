@@ -32,10 +32,15 @@ Preliminary testing of the questions above is necessary to determine which resea
 Figure_1 <- JSTOR_2wordcor(multiple_archives, "commodity", "standardization")
 
 
-Figureoneword <- JSTOR_1word(multiple_archives, "commodity")
+Figureoneword <- JSTOR_1word(multiple_archives, "commodity") #Can only get doi directly out of one word or two words function, use those articles only, supplement with other tables just for interesting things to talk about. 2wordcor and PCA doesn't give doi.
+#can run the 2word cor and then the 2words function with the same words and filter them against each other to get out the articles, for example, if 2wordcor and 2words show 1989 is high year, look through those.
+
 commodity_tbl <- Figureoneword$word_by_year
 commodity_tbl[which.max(commodity_tbl$word_ratio),]
 #url: http://www.jstor.org/stable/279900  use last digits of doi to get to link
+
+
+
 ```
 Figure 1 shows the correlation over time between the words "commodity" and "standardization".
 
