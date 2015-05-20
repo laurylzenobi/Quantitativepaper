@@ -18,34 +18,34 @@ Questions that I think would be well-suited to this type of research are listed 
 Due to the small sample size that is expected for these topics and study area, this project will consists of two parts. The first is a statistical analysis of the frequency of the terms identified in the preceding questions. The second part will consist of a close reading of selected articles of interest. The low numbers expected from the statistical analysis necessitate the close readings, which will be beneficial in answering higher level questions about the theoretical frameworks that were utilized in the articles of interest. 
 
 
-```{r Data_ingest}
+```{r Data_ingest, eval=FALSE}
 #library(JSTORr)
 #multiple_archives <- JSTORr ::: JSTOR_unpack_multiple_archives(mydir = "Data")
 #save(multiple_archives, file="Data/multiple_archives.RData")
 load("Data/multiple_archives.RData")
 ```
 
-Codes from the JSTORr package will be utilized for the statistical analysis. Potential codes include the following:
-```{r potential_codes}
-JSTOR_2words(multiple_archives, "sago", "ceramics")
-JSTOR_2wordcor(multiple_archives, "sago", "forna")
-JSTOR_findassocs(multiple_archives, Vector of terms, "sago")
-```
-
+Codes from the JSTORr package will be utilized for the statistical analysis. 
 Preliminary testing of the questions above is necessary to determine which research avenue is the most likely to have a sufficiently sized data set and to produce the most useful information for the purpose of this study. I will start this process with the first potential research question (see above). The first task is to establish the frequency of key words that are used in the first research question. "Commodity", "Standardization", and "Ceramics" were analyzed for their correlation over time. 
 
-```{r, fig.width=4, fig.height=5, message=F}
-Figure.1 <- JSTOR_2wordcor(multiple_archives, "commodity", "standardization") 
+```{r, fig.width=4, fig.height=5, message=F, eval=FALSE}
+Figure_1 <- JSTOR_2wordcor(multiple_archives, "commodity", "standardization")
+
+
+Figureoneword <- JSTOR_1word(multiple_archives, "commodity")
+commodity_tbl <- Figureoneword$word_by_year
+commodity_tbl[which.max(commodity_tbl$word_ratio),]
+
 ```
 Figure 1 shows the correlation over time between the words "commodity" and "standardization".
 
 ```{r, fig.width=4, fig.height=5, message=F}
-Figure.2 <- JSTOR_2wordcor(multiple_archives, "commodity", "ceramics")
+Figure_2 <- JSTOR_2wordcor(multiple_archives, "commodity", "ceramics")
 ```
 Figure 2 shows the correlation over time between the words "commodity" and "ceramics".
 
 ```{r, fig.width=4, fig.height=5, message=F}
-Figure.3 <- JSTOR_2wordcor(multiple_archives, "standardization", "ceramics")
+Figure_3 <- JSTOR_2wordcor(multiple_archives, "standardization", "ceramics")
 ```
 Figure 2 shows the correlation over time between the words "standardization" and "ceramics".
   
@@ -57,7 +57,7 @@ To determine how each key word of interest (commodity, standardization, and cera
 nouns <-JSTOR_dtmofnouns(multiple_archives)
 #save(nouns, file="Data/nouns.RData")
 
-Figure.4 <- JSTOR_clusterbywords(nouns, "commodity")
+Figure_4 <- JSTOR_clusterbywords(nouns, "commodity")
 
 #correlation of two vectors within range of decades
 JSTOR_2wordcor(multiple_archives, c(""), c("intersectionality"), span = 0.7, yearfrom = 1970, yearto = 2007)
