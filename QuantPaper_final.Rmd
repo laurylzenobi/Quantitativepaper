@@ -1,9 +1,13 @@
 ---
 title: "Quantitative Paper"
 author: "Lauryl Zenobi "
-date: "May 26, 2015"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: rmarkdown::tufte_handout
 ---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(message=FALSE, warning=FALSE, cache=TRUE, echo=FALSE)
+```
 
 #Introduction
 For the purpose of this quantitative project I want to explore the relationship between several sets of words. This quantitative data will be used to improve upon the background and theoretical framework of my dissertation proposal. There is also the potential that this data will provide methodological approaches to the quantitative portion of my dissertation research. 
@@ -13,8 +17,8 @@ The questions that are guiding this paper consist of the following: What is the 
 
 Due to the small sample size that is expected for these topics and study area, this project will consists of two parts. The first is a statistical analysis of the frequency of the terms identified in the preceding questions. The second part will consist of a close reading of selected articles of interest. The low numbers expected from the statistical analysis necessitate the close readings, which will be beneficial in answering higher level questions about the theoretical frameworks that were utilized in the articles of interest. 
 
-```{r Data_ingest, eval=FALSE}
-#library(JSTORr)
+```{r Data_ingest}
+library(JSTORr)
 #multiple_archives <- JSTORr ::: JSTOR_unpack_multiple_archives(mydir = "Data")
 #save(multiple_archives, file="Data/multiple_archives.RData")
 load("Data/multiple_archives.RData")
@@ -24,9 +28,9 @@ load("Data/multiple_archives.RData")
 Codes from the JSTORr package will be utilized for the statistical analysis. 
 Preliminary testing of the questions above is necessary to determine which research avenue is the most likely to have a sufficiently sized data set and to produce the most useful information for the purpose of this study. I will start this process with the first potential research question (see above). The first task is to establish the frequency of key words that are used in the first research question. "Commodity", "Standardization", and "Ceramics" were analyzed for their correlation over time. 
 
-```{r, fig.width=4, fig.height=5, message=F, eval=FALSE}
+```{r, fig.width=4, fig.height=5}
 Figure_1 <- JSTOR_2wordcor(multiple_archives, "commodity", "standardization")
-
+Figure_1$plot
 
 Figureoneword <- JSTOR_1word(multiple_archives, "commodity") #Can only get doi directly out of one word or two words function, use those articles only, supplement with other tables just for interesting things to talk about. 2wordcor and PCA doesn't give doi.
 #can run the 2word cor and then the 2words function with the same words and filter them against each other to get out the articles, for example, if 2wordcor and 2words show 1989 is high year, look through those.
@@ -38,12 +42,12 @@ commodity_tbl[which.max(commodity_tbl$word_ratio),]
 ```
 Figure 1 shows the correlation over time between the words "commodity" and "standardization".
 
-```{r, fig.width=4, fig.height=5, message=F}
+```{r, fig.width=4, fig.height=5}
 Figure_2 <- JSTOR_2wordcor(multiple_archives, "commodity", "ceramics")
 ```
 Figure 2 shows the correlation over time between the words "commodity" and "ceramics".
 
-```{r, fig.width=4, fig.height=5, message=F}
+```{r, fig.width=4, fig.height=5}
 Figure_3 <- JSTOR_2wordcor(multiple_archives, "standardization", "ceramics")
 ```
 Figure 2 shows the correlation over time between the words "standardization" and "ceramics".
@@ -52,7 +56,7 @@ The results of these plots indicate that while there may not be a large number o
 
 To determine how each key word of interest (commodity, standardization, and ceramics/pottery) cluster within the literature, a principal component analysis of each terms was conducted. The literature data was first compiled into a vector containing only nouns, as to eliminate erroneous words. Each word was then analyzed against this vector to determine what contexts the word is utilized in within the literature. Outlier and discrete clusters of of the most interest to this research, as those will be the articles in which the terms are used uniquely. 
 
-```{r cluster analysis}
+```{r cluster_analysis}
 nouns <-JSTOR_dtmofnouns(multiple_archives)
 #save(nouns, file="Data/nouns.RData")
 
