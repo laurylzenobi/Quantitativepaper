@@ -1,8 +1,7 @@
 ---
 title: "Quantitative Paper"
-author: "Lauryl Zenobi "
-date: "`r format(Sys.time(), '%d %B, %Y')`"
-output: rmarkdown::tufte_handout
+author: "Lauryl Zenobi"
+output: html_document
 ---
 
 ```{r setup, echo=FALSE}
@@ -32,27 +31,61 @@ Preliminary testing of the questions above is necessary to determine which resea
 Figure_1 <- JSTOR_2wordcor(multiple_archives, "commodity", "standardization")
 Figure_1$plot
 
-Figureoneword <- JSTOR_1word(multiple_archives, "commodity") #Can only get doi directly out of one word or two words function, use those articles only, supplement with other tables just for interesting things to talk about. 2wordcor and PCA doesn't give doi.
-#can run the 2word cor and then the 2words function with the same words and filter them against each other to get out the articles, for example, if 2wordcor and 2words show 1989 is high year, look through those.
+Figure1word_commodity<- JSTOR_1word(multiple_archives, "commodity")
+Figure1word_commodity$plot
 
 commodity_tbl <- Figureoneword$word_by_year
 commodity_tbl[which.max(commodity_tbl$word_ratio),]
+commodity_tbl$word_ratio[]
 #url: http://www.jstor.org/stable/279900  use last digits of doi to get to link
+
+Figure1word_standardization<- JSTOR_1word(multiple_archives, "standardization")
+Figure1word_standardization$plot
+standardization_tbl <- Figure1word_standardization$word_by_year
+standardization_tbl[which.max(standardization_tbl$word_ratio),]
+
+Figure1word_standard<- JSTOR_1word(multiple_archives, "standard")
+Figure1word_standard$plot
+standard_tbl <- Figure1word_standard$word_by_year
+standard_tbl[which.max(standard_tbl$word_ratio),] #not useful produces a coefficient comment article
+
+Figure1word_ceramics<- JSTOR_1word(multiple_archives, "ceramics")
+Figure1word_ceramics$plot
+ceramics_tbl <- Figure1word_ceramics$word_by_year
+ceramics_tbl[which.max(ceramics_tbl$word_ratio),]
+#1593826, 20622430, tensile strength, dating shell temper, wide variety of topics.
+
+Figure1word_ceramic<- JSTOR_1word(multiple_archives, "ceramic")
+Figure1word_ceramic$plot
+ceramic_tbl <- Figure1word_ceramic$word_by_year
+ceramic_tbl[which.max(ceramic_tbl$word_ratio),] #Sharer and Gifford
+
+Figure1word_pottery<- JSTOR_1word(multiple_archives, "pottery")
+Figure1word_pottery$plot
+pottery_tbl <- Figure1word_pottery$word_by_year
+pottery_tbl[which.max(pottery_tbl$word_ratio),] #Roosevelt
+
+#Can only get doi directly out of one word or two words function, use those articles only, supplement with other tables just for interesting things to talk about. 2wordcor and PCA doesn't give doi.
+#can run the 2word cor and then the 2words function with the same words and filter them against each other to get out the articles, for example, if 2wordcor and 2words show 1989 is high year, look through those.
 
 ```
 Figure 1 shows the correlation over time between the words "commodity" and "standardization".
 
 ```{r, fig.width=4, fig.height=5}
 Figure_2 <- JSTOR_2wordcor(multiple_archives, "commodity", "ceramics")
+Figure_2$plot #2006 is a high year
 ```
 Figure 2 shows the correlation over time between the words "commodity" and "ceramics".
 
 ```{r, fig.width=4, fig.height=5}
 Figure_3 <- JSTOR_2wordcor(multiple_archives, "standardization", "ceramics")
+Figure_3$plot
 ```
 Figure 2 shows the correlation over time between the words "standardization" and "ceramics".
   
-The results of these plots indicate that while there may not be a large number of instances in which these sets of words appear together in the literature, each plot demonstrates that of the instances in which they do appear, there are a number the sets of words are strongly correlated. This suggests, and close readings can verify this, that the data set for this research question would be rich enough to justify a quantitative method supplemented by a close readings of selected articles. Therefore, question #1 - What is the relationships between standardization and ceramics in the archaeological literature? Has this relationship changed over time? What theoretical frameworks support these types of analyses? - will be the focus of this quantative research paper. 
+The results of these plots indicate that while there may not be a large number of instances in which these sets of words appear together in the literature, each plot demonstrates that of the instances in which they do appear, there are a number the sets of words are strongly correlated. 
+
+This suggests, and close readings can verify this, that the data set for this research question would be rich enough to justify a quantitative method supplemented by a close readings of selected articles. Therefore, question #1 - What is the relationships between standardization and ceramics in the archaeological literature? Has this relationship changed over time? What theoretical frameworks support these types of analyses? - will be the focus of this quantative research paper. 
 
 To determine how each key word of interest (commodity, standardization, and ceramics/pottery) cluster within the literature, a principal component analysis of each terms was conducted. The literature data was first compiled into a vector containing only nouns, as to eliminate erroneous words. Each word was then analyzed against this vector to determine what contexts the word is utilized in within the literature. Outlier and discrete clusters of of the most interest to this research, as those will be the articles in which the terms are used uniquely. 
 
@@ -61,11 +94,8 @@ nouns <-JSTOR_dtmofnouns(multiple_archives)
 #save(nouns, file="Data/nouns.RData")
 
 Figure_4 <- JSTOR_clusterbywords(nouns, "commodity")
-
+Figure_4$plot
 #correlation of two vectors within range of decades
-JSTOR_2wordcor(multiple_archives, c(""), c("intersectionality"), span = 0.7, yearfrom = 1970, yearto = 2007)
-
-ggsave("Figures/standardization_ceramics_overtime.png") #savefigure
 ```
 
 
@@ -74,12 +104,14 @@ Each keyword was then entered into it's own vector, so that I could analyze the 
 
 # top words per decade in articles containing 'X'
 standardization_nouns <- JSTOR_dtmofnouns(multiple_archives, word = 'standardization', sparse = 1, POStag = TRUE)
+
+standard_nouns <- JSTOR_dtmofnouns(multiple_archives, word = 'standard', sparse = 1, POStag = TRUE)
 #remove noisy words
 custom_stopwords <- c('archaeology', 'university', 'research', 'evidence', 'journal', 'world', 'site', 'cambridge', 'archaeol', 'area', 'region', 'period', 'analysis', 'anthropology', 'springer', 'production', 'figure', 'work', 'world', 'concept', 'human', 'middle', 'altamira', 'culture', 'record', 'citation', 'discipline', 'author', 'proportion', 'literature', 'report', 'approach', 'cambridge')
 
 standardization_freqwords <- JSTOR_freqwords(multiple_archives, standardization_nouns, custom_stopwords, n = 3)
 
-standardization_freqwords <- JSTOR_freqwords(multiple_archives, standardization_nouns, custom_stopwords, n = 3)
+standard_freqwords <- JSTOR_freqwords(multiple_archives, standard_nouns, custom_stopwords, n = 3)
 ```
 It's clear that "standard" and "standardization" produce two different frequecy plots. From 2008-2010, pottery is the fourth word most commonly printed in association with "standard". It is also a common word during the periods of 1996-1998, the most common word associated with "standard" in the 1993-1995 literature, and the fifth most common word in articles published between 2006-2007. Standardization presents an even clearer image, in 1999-2001 article, pottery is the most common word associated with "standardization", though it falls out of favor in later years. This demonstrates that pottery and standardization/standard regularly are associated in the literature data set, suggesting a fruitful direction of comparison to the two word correlations plots presented earlier in this paper. 
 
