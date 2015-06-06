@@ -9,10 +9,10 @@ knitr::opts_chunk$set(message=FALSE, warning=FALSE, cache=TRUE, echo=FALSE)
 ```
 
 #Introduction
-For the purpose of this quantitative project I want to explore the relationship between several sets of words. This quantitative data will be used to improve upon the background and theoretical framework of my dissertation proposal. There is also the potential that this data will provide methodological approaches to the quantitative portion of my dissertation research. 
+For the purpose of this quantitative project I want to explore the theoretical frameworks associated with several key words (see below). The data derived from this exploration will be used to improve upon the background and theoretical framework of my dissertation proposal. There is also the potential that this data will provide methodological approaches to the quantitative portion of my dissertation research. 
 
 #Key Terms and Hypotheses
-The questions that are guiding this paper consist of the following: What is the relationship between **standardization** and **ceramics** in the archaeological literature? What is the relationship between **ceramics** and **commodities**? Have these relationships changed over time? What theoretical frameworks support these types of analyses?
+The questions that are guiding this paper consist of the following: What is the relationship between **standardization** and **ceramics** in the archaeological literature? What is the relationship between **ceramics** and **commodities**? Has the use of these terms changed over time? What theoretical frameworks support these types of analyses?
 
 Due to the small sample size that is expected for these topics and study area, this project will consists of two parts. The first is a statistical analysis of the frequency of the terms identified in the preceding questions. The second part will consist of a close reading of selected articles of interest. The low numbers expected from the statistical analysis necessitate the close readings, which will be beneficial in answering higher level questions about the theoretical frameworks that were utilized in the articles of interest. 
 
@@ -24,13 +24,32 @@ load("Data/multiple_archives.RData")
 ```
 
 #Exploratory Data Analysis
-Codes from the JSTORr package will be utilized for the statistical analysis. 
-Preliminary testing of the questions above is necessary to determine which research avenue is the most likely to have a sufficiently sized data set and to produce the most useful information for the purpose of this study. I will start this process with the first potential research question (see above). The first task is to establish the frequency of key words that are used in the first research question. "Commodity", "Standardization", and "Ceramics" were analyzed for their correlation over time. 
+Codes from the JSTORr package were utilized for the statistical analysis. 
+Preliminary testing of the questions mentioned above was necessary to determine which research avenue was the most likely to produce information useful for the purpose of this study. The first task was to establish the frequency of key words that are used in the guiding research questions. "Commodity", "Standardization", and "Ceramics" were analyzed for their correlation over time. 
 
 ```{r, fig.width=4, fig.height=5}
 Figure_1 <- JSTOR_2wordcor(multiple_archives, "commodity", "standardization")
 Figure_1$plot
+```
+Figure 1 shows the correlation over time between the words "commodity" and "standardization".
 
+```{r, fig.width=4, fig.height=5}
+Figure_2 <- JSTOR_2wordcor(multiple_archives, "commodity", "ceramics")
+Figure_2$plot #2006 is a high year
+```
+Figure 2 shows the correlation over time between the words "commodity" and "ceramics".
+
+```{r, fig.width=4, fig.height=5}
+Figure_3 <- JSTOR_2wordcor(multiple_archives, "standardization", "ceramics")
+Figure_3$plot
+```
+Figure 2 shows the correlation over time between the words "standardization" and "ceramics".
+  
+The results of these plots indicate that while there may not be a large number of instances in which these sets of words appear together in the literature, each plot demonstrates that of the instances in which they do appear, there are a number the sets of words are strongly correlated. 
+
+In order to Each keyword, and variants of each keyword were then studied for 
+
+```{r 1word}
 Figure1word_commodity<- JSTOR_1word(multiple_archives, "commodity")
 Figure1word_commodity$plot
 
@@ -64,28 +83,7 @@ Figure1word_pottery<- JSTOR_1word(multiple_archives, "pottery")
 Figure1word_pottery$plot
 pottery_tbl <- Figure1word_pottery$word_by_year
 pottery_tbl[which.max(pottery_tbl$word_ratio),] #Roosevelt
-
-#Can only get doi directly out of one word or two words function, use those articles only, supplement with other tables just for interesting things to talk about. 2wordcor and PCA doesn't give doi.
-#can run the 2word cor and then the 2words function with the same words and filter them against each other to get out the articles, for example, if 2wordcor and 2words show 1989 is high year, look through those.
-
 ```
-Figure 1 shows the correlation over time between the words "commodity" and "standardization".
-
-```{r, fig.width=4, fig.height=5}
-Figure_2 <- JSTOR_2wordcor(multiple_archives, "commodity", "ceramics")
-Figure_2$plot #2006 is a high year
-```
-Figure 2 shows the correlation over time between the words "commodity" and "ceramics".
-
-```{r, fig.width=4, fig.height=5}
-Figure_3 <- JSTOR_2wordcor(multiple_archives, "standardization", "ceramics")
-Figure_3$plot
-```
-Figure 2 shows the correlation over time between the words "standardization" and "ceramics".
-  
-The results of these plots indicate that while there may not be a large number of instances in which these sets of words appear together in the literature, each plot demonstrates that of the instances in which they do appear, there are a number the sets of words are strongly correlated. 
-
-This suggests, and close readings can verify this, that the data set for this research question would be rich enough to justify a quantitative method supplemented by a close readings of selected articles. Therefore, question #1 - What is the relationships between standardization and ceramics in the archaeological literature? Has this relationship changed over time? What theoretical frameworks support these types of analyses? - will be the focus of this quantative research paper. 
 
 To determine how each key word of interest (commodity, standardization, and ceramics/pottery) cluster within the literature, a principal component analysis of each terms was conducted. The literature data was first compiled into a vector containing only nouns, as to eliminate erroneous words. Each word was then analyzed against this vector to determine what contexts the word is utilized in within the literature. Outlier and discrete clusters of of the most interest to this research, as those will be the articles in which the terms are used uniquely. 
 
