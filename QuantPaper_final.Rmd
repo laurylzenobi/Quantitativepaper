@@ -1,7 +1,8 @@
 ---
 title: "Quantitative Paper"
 author: "Lauryl Zenobi"
-output: html_document
+output: pdf_document
+bibliography: quantbib.bib
 ---
 
 ```{r setup, echo=FALSE}
@@ -12,7 +13,7 @@ knitr::opts_chunk$set(message=FALSE, warning=FALSE, cache=TRUE, echo=FALSE)
 For the purpose of this quantitative project I will explore the theoretical frameworks associated with several key words (see below). The data derived from this exploration will be used to improve upon the background and theoretical framework of my dissertation proposal. There is also the potential that this data will provide methodological approaches to the quantitative portion of my dissertation research. 
 
 #Key Terms and Hypotheses
-The questions that are guiding this paper consist of the following: What is the relationship between **standardization** and **ceramics** in the archaeological literature? What is the relationship between **ceramics** and **commodities**? Has the use of these terms changed over time? What theoretical frameworks support these types of analyses?
+The questions that are guiding this paper consist of the following: What is the relationship between **standardization** and **ceramics** in the archaeological literature? What is the relationship between **ceramics** and **commodities**? Has the use of these terms changed over time? What theoretical frameworks and models support these types of analyses?
 
 Due to the small sample size that is expected for these topics and study area, this project will consists of two parts. The first is a statistical analysis of the frequency of the terms identified in the preceding questions. The second part will consist of a close reading of selected articles of interest. The low numbers expected from the statistical analysis necessitate the close readings, which will be beneficial in answering higher level questions about the theoretical frameworks that were utilized in the articles of interest. 
 
@@ -24,28 +25,27 @@ load("Data/multiple_archives.RData")
 ```
 
 #Exploratory Data Analysis
-Codes from the JSTORr package were utilized for the statistical analysis. 
-Preliminary testing of the questions mentioned above was necessary to determine which research avenue was the most likely to produce information useful for the purpose of this study. The first task was to establish the frequency of key words that are used in the guiding research questions. "Commodity", "Standardization", and "Ceramics" were analyzed for their correlation over time. 
+Statistical analyses were conducted to determine the prevalence of each keyword by decade. Preliminary testing of the questions mentioned above was necessary to determine which research avenue was the most likely to produce information useful for the purpose of this study. The first task was to establish the frequency of key words that are used in the guiding research questions. **Commodity**, **Standardization**, and **Ceramics** were analyzed for their correlation over time. 
 
-```{r, fig.width=4, fig.height=5}
+```{r}
 Figure_1 <- JSTOR_2wordcor(multiple_archives, "commodity", "standardization")
 Figure_1$plot
-```
-Figure 1 shows the correlation over time between the words "commodity" and "standardization".
+```  
+Figure 1. Correlation over time between "commodity" and "standardization".
 
-```{r, fig.width=4, fig.height=5}
+```{r}
 Figure_2 <- JSTOR_2wordcor(multiple_archives, "commodity", "ceramics")
 Figure_2$plot #2006 is a high year
-```
-Figure 2 shows the correlation over time between the words "commodity" and "ceramics".
+```  
+Figure 2. Correlation over time between "commodity" and "ceramics".
 
-```{r, fig.width=4, fig.height=5}
+```{r}
 Figure_3 <- JSTOR_2wordcor(multiple_archives, "standardization", "ceramics")
 Figure_3$plot
-```
-Figure 2 shows the correlation over time between the words "standardization" and "ceramics".
+```  
+Figure 3. Correlation over time between "standardization" and "ceramics".
   
-The results of these plots indicate that while there may not be a large number of instances in which these sets of words appear together in the literature, each plot demonstrates that of the instances in which they do appear, there are a number the sets of words are strongly correlated. 
+The results of these plots indicate that while there may not be a large number of instances in which these sets of words appear together in the literature, each plot demonstrates that of the instances in which they do appear, the sets of words are strongly correlated. 
 
 In order to identify publications of interest, each keyword, and variants of each keyword were then analyzed for their frequency over time. No synonym was utilized for "commodity" as that word is very specific and unlikely to produce erroneous results, but "standard" and "standardization" were compared to determine which keyword was most relevant to this study. As expected, "standard" occurred with high proportion. The article in which it appears with the highest proportion was related to mathematical modeling (i.e. mathematical standard errors) and was determined to not be useful for this paper. Standardization, however, produced a highly useful article, which will be discussed in the selected readings section below. 
 
@@ -56,25 +56,26 @@ Figure1word_commodity$plot
 commodity_tbl <- Figureoneword$word_by_year
 commodity_tbl[which.max(commodity_tbl$word_ratio),]
 #url: http://www.jstor.org/stable/279900  use last digits of doi to get to link
-```
-Figure X. Frequency of "Commodity" over time. 
+```  
+Figure 4. Frequency of "Commodity" over time.   
+
 ```{r 1word_standardization}
 Figure1word_standardization<- JSTOR_1word(multiple_archives, "standardization")
 Figure1word_standardization$plot
 standardization_tbl <- Figure1word_standardization$word_by_year
 standardization_tbl[which.max(standardization_tbl$word_ratio),]
-```
-Figure X. Frequency of "Standardization" over time.
+```  
+Figure 5. Frequency of "Standardization" over time.
 
-"Ceramics" and "ceramic were" also compared to determine which keyword would be most productive. Interestingly, the two words produced markedly different articles, with ceramics producing articles that covered a wide variety of topics related to ceramic analyses, including temper analyses and studies on the physical properties of the clay materials. The wide range of topics was not suitable for this study, which seeks to pinpoint theoretical frameworks. Therefore, "ceramic" was utilized as the keyword of interest. "Pottery" was also explored, and the results were more tailored than those of "ceramics", however, the article with the highest proportion of the term was a response article, and not useful for exploring theoretical concepts or methods of explanation. 
+"Ceramics" and "ceramic" were also compared to determine which keyword would be most productive. Interestingly, the two words produced markedly different articles, with ceramics producing articles that covered a wide variety of topics related to ceramic analyses, including temper analyses and studies on the physical properties of the clay materials. The wide range of topics was not suitable for this study, which seeks to pinpoint theoretical frameworks. Therefore, "ceramic" was utilized as the keyword of interest. "Pottery" was also explored, and the results were more tailored than those of "ceramics", however, the article with the highest proportion of the term was a response article, and not useful for exploring theoretical concepts or methods of explanation. 
 
 ```{r 1word_ceramic}
 Figure1word_ceramic<- JSTOR_1word(multiple_archives, "ceramic")
 Figure1word_ceramic$plot
 ceramic_tbl <- Figure1word_ceramic$word_by_year
 ceramic_tbl[which.max(ceramic_tbl$word_ratio),] #Sharer and Gifford
-```
-Figure X. Frequency of "ceramic" over time. 
+```  
+Figure 6. Frequency of "ceramic" over time. 
 
 To determine how each key word of interest (commodity, standardization, and ceramics/pottery) cluster within the literature, a principal component analysis of each terms was conducted. The literature data was first compiled into a vector containing only nouns, as to eliminate erroneous words. Each word was then analyzed against this vector to determine what contexts the word is utilized in within the literature. Each keyword was then entered into it's own vector, so that I could analyze the words and the frequency of those words that are associated with each keyword.
 
@@ -83,18 +84,17 @@ To determine how each key word of interest (commodity, standardization, and cera
 # top words per decade in articles containing 'X'
 standardization_nouns <- JSTOR_dtmofnouns(multiple_archives, word = 'standardization', sparse = 1, POStag = TRUE)
 
-standard_nouns <- JSTOR_dtmofnouns(multiple_archives, word = 'standard', sparse = 1, POStag = TRUE)
 #remove noisy words
 custom_stopwords <- c('archaeology', 'university', 'research', 'evidence', 'journal', 'world', 'site', 'cambridge', 'archaeol', 'area', 'region', 'period', 'analysis', 'anthropology', 'springer', 'production', 'figure', 'work', 'world', 'concept', 'human', 'middle', 'altamira', 'culture', 'record', 'citation', 'discipline', 'author', 'proportion', 'literature', 'report', 'approach', 'cambridge')
 standardization_freqwords <- JSTOR_freqwords(multiple_archives, standardization_nouns, custom_stopwords, n = 3)
-```
-Figure X. Words associated with "standardization" over time. 
+```  
+Figure 7. Words associated with "standardization" over time. 
 
 ```{r standardization_frequency_counts}
-
+standard_nouns <- JSTOR_dtmofnouns(multiple_archives, word = 'standard', sparse = 1, POStag = TRUE)
 standard_freqwords <- JSTOR_freqwords(multiple_archives, standard_nouns, custom_stopwords, n = 3)
-```
-Figure X. Words associated with "standard" over time. 
+```  
+Figure 8. Words associated with "standard" over time. 
 
 It's clear that "standard" and "standardization" produce two different frequecy plots. From 2008-2010, pottery is the fourth word most commonly printed in association with "standard". It is also a common word during the periods of 1996-1998, the most common word associated with "standard" in the 1993-1995 literature, and the fifth most common word in articles published between 2006-2007. Standardization presents an even clearer image, in 1999-2001 article, pottery is the most common word associated with "standardization", though it falls out of favor in later years. This demonstrates that pottery and standardization/standard regularly are associated in the literature data set.
 
@@ -103,8 +103,8 @@ It's clear that "standard" and "standardization" produce two different frequecy 
 commodity_nouns <- JSTOR_dtmofnouns(multiple_archives, word = 'commodity', sparse = 1, POStag = TRUE)
 
 commodity_freqwords <- JSTOR_freqwords(multiple_archives, commodity_nouns, custom_stopwords, n = 3)
-```
-Figure X. Words associated with "commodity" over time. 
+```    
+Figure 9. Words associated with "commodity" over time. 
 
 Pottery and commodity only appear in association within articles published between 1994-1996, however, during this time period, pottery is the second most common word associated with commodity, indicating the two appear at least 400 times in conjunction. Also useful for this project is the literature published between 2006-2008, in which trade and exchange are the two most commonly associated with commodity. The question that is driving this research assumes that commodities are trasnported as a result of increased trade and exchange.
 
@@ -113,16 +113,17 @@ Pottery and commodity only appear in association within articles published betwe
 pottery_nouns <- JSTOR_dtmofnouns(multiple_archives, word = 'pottery', sparse = 1, POStag = TRUE)
 
 pottery_freqwords <- JSTOR_freqwords(multiple_archives, pottery_nouns, custom_stopwords, n = 3)
+```
+Figure 10. Words associated with "pottery" over time.
 
+```{r ceramics_frequency_counts}
 ceramics_nouns <- JSTOR_dtmofnouns(multiple_archives, word = 'ceramics', sparse = 1, POStag = TRUE)
 
 ceramics_freqwords <- JSTOR_freqwords(multiple_archives, ceramics_nouns, custom_stopwords, n = 3)
-```
-Figures XX. ???
+```  
+Figures 11. Words associated with "ceramics" over time. 
 
-In previous iterations of this JSTORr package, it was noted that ceramics/ceramic does not always produce reliable results. Therefore, for this frequency analysis, both pottery and ceramics were utilized as key words to increase the likelihood that useful word associations could be found. It is also interesting to compare and contrast the two much the same as I did above with standard and standardization, in order to see if any differences in associations occur.  
-
-The results of using "pottery" show that, even taking out noisey words, the data is very jumbled. The results of a frequency analysis for "ceramics" are relatively similar, possible even more jumbled. It is interesting to note that in both cases, ceramics and pottery prodmaplebaruce too many associations to be useful, therefore, for the purpose of the paper, standardization/standard, and commodity will be utilized because they provide much more constrained data sets and are theoretically specific. 
+The results of using "pottery" show that, even taking out noisey words, the data is very jumbled. The results of a frequency analysis for "ceramics" are relatively similar, possible even more jumbled. It is interesting to note that in both cases, ceramics and pottery produce too many associations to be useful, therefore, for the purpose of the paper, standardization/standard, and commodity will be utilized because they provide much more constrained data sets and are theoretically specific. 
 
 #Selected Readings and Theoretical Frameworks
 The exploratory research produced several articles of interest. Each article will be demonstrates the types of theoretical frameworks that can be applied to understanding commodities and standardization, particularly in reference to the standardization of ceramics. **Commodities** and **standardization** were determined to be the most productive keywords in which to conduct targeted literature readings, as they are the most specific terms, and can contribute the most to the theoretical and methodological background of my dissertation proposal. 
@@ -135,7 +136,7 @@ Ceramics are an excellent proxy for interaction and trade. An analysis of cerami
 Ceramics are also useful for identifying craft specialization, one of the hallmarks of complex state level societies. Economic specialization is defined as the investment of labor and capital towards specific commodities, in some cases, ceramics and ceramic production, which can be identified through workshops, exhange networks (as in the case of [@Sharer_1970]) and through morphological analyses of the commodity itself. Blackman et al. (1993) define standardization as the increased homogeneity of an artifact type, best observed by comparing two or more assemblages from the same cultural tradition. The reduction in variability within a ceramic assemblage is assumed to be a result of centralized or specialized mass production, in which a desire for cost and labor efficiency result in a selection towards a standardized ceramic form. The standardization hypothesis predicts that standardization of a ceramic assemblage will be present a narrow range of clay materials utilized and a reduction in manufacturing method variability [@Blackman_1993]. This expectation is borne out in the ceramic waster assemblage recovered from Tell Leilan, in Syria, which was studied by [@Blackman_1993]. The results of that study indicate that standardized ceramic production over a long period of time (two to three centuries) will result in some variability to the ceramic assemblage, but the overall expectations of the standardization hypothesis remain true. Because of potential "blurring" of the ceramic assemblage, the authors caution that it is critical to maintain tight chronological and spatial control, and to be cognizant of potential factors that could influence the uniformity of ceramic assemblages. Multiple production workshop sites, for example, may result in slight differences to assemblages. Long duration production of ceramics may cause specialists to draw from multiple clay sources, skewing sourcing studies of ceramic assemblages[@Blackman_1993]. Once these potential biases are recognized, however, they can be accounted for, and potentially enrich the explanation of craft specialization and standardization. 
 
 #Discussion of Results
-
+The results of the quantitative exploratory data and the targeted readings demonstrates the utility of the text mining technique's ability to target articles that are immediately relevant to studies of standardization and commodity exchange. The quantitative data indicates a general trend towards exploring theories of commodity, specialization, and standardization overall, and a trend towards incorporating these theories into interpreting ceramics assemblages. This trend is likely a result of an overall increase in rescue archaeology and an interest in typological studies on the tail of processual archaeology. The application of these theories to ceramic studies indicates that the theory and methodology of this line of inquiry is growing and drawing from a diverse range of theories, including economics, Marxism, scales of economy, and socioeconomic systems. 
 
 
 
