@@ -79,18 +79,6 @@ Figure X. Frequency of "ceramic" over time.
 
 To determine how each key word of interest (commodity, standardization, and ceramics/pottery) cluster within the literature, a principal component analysis of each terms was conducted. The literature data was first compiled into a vector containing only nouns, as to eliminate erroneous words. Each word was then analyzed against this vector to determine what contexts the word is utilized in within the literature. Each keyword was then entered into it's own vector, so that I could analyze the words and the frequency of those words that are associated with each keyword.
 
-```{r cluster_analysis}
-nouns <-JSTOR_dtmofnouns(multiple_archives)
-#save(nouns, file="Data/nouns.RData")
-
-Figure_4 <- JSTOR_clusterbywords(nouns, "commodity")
-Figure_4$plot
-#correlation of two vectors within range of decades
-```
-Figure X. Words associated with "commodity" over time. 
-
-Essentially, this plot demonstrates the top words per decade found in articles containing the keyword, in this case "commodity". It is interesting to note that "pottery" was strongly associated with the term "commodity" from 1999-2001.
-
 ```{r standard_frequency_counts}
 
 # top words per decade in articles containing 'X'
@@ -127,22 +115,23 @@ pottery_nouns <- JSTOR_dtmofnouns(multiple_archives, word = 'pottery', sparse = 
 
 pottery_freqwords <- JSTOR_freqwords(multiple_archives, pottery_nouns, custom_stopwords, n = 3)
 
-
 ceramics_nouns <- JSTOR_dtmofnouns(multiple_archives, word = 'ceramics', sparse = 1, POStag = TRUE)
 
 ceramics_freqwords <- JSTOR_freqwords(multiple_archives, ceramics_nouns, custom_stopwords, n = 3)
 ```
 Figures XX. ???
 
-
 In previous interations of this JSTORr package, it was noted that ceramics/ceramic does not always produce reliable results. Therefore, for this frequency analysis, both pottery and ceramics were utilized as key words to increase the likelihood that useful word associations could be found. It is also interesting to compare and contrast the two much the same as I did above with standard and standardization, in order to see if any differences in associations occur.  
 
-The results of using "pottery" show that, even taking out noisey words, the data is very jumbled. The results of a frequency analysis for "ceramics" are relatively similar, possible even more jumbled. It is interesting to note that in both cases, ceramics and pottery produce too many associations to be useful, therefore, for the purpose of the paper, standardization/standard, and commodity will be utilized because they provide much more constrained data sets and are theoretically specific. 
+The results of using "pottery" show that, even taking out noisey words, the data is very jumbled. The results of a frequency analysis for "ceramics" are relatively similar, possible even more jumbled. It is interesting to note that in both cases, ceramics and pottery prodmaplebaruce too many associations to be useful, therefore, for the purpose of the paper, standardization/standard, and commodity will be utilized because they provide much more constrained data sets and are theoretically specific. 
 
-#Selected Readings
-The exploratory research produced several articles of interest. 
+#Selected Readings and Theoretical Frameworks
+The exploratory research produced several articles of interest. Each article will be desmonstrates the types of theoretical frameworks that can be applied to understanding commodities and standardization, particularly in reference to the standardization of ceramics. **Commodities** and **standardization** were determined to be the most productive keywords in which to conduct targeted literature readings, as they are the most specific terms, and can contribute the most to the theoretical and methodological background of my dissertation proposal. 
 
-##Theoretical Frameworks
+Commodity studies have interested archaeologists since the rise of Marxism [@Zeitlin_1982], though it is clear from the preliminary data exploration that this topic has increased significantly since the 1970s (Figure X), likely as a result of processual archaeology [@Zeitlin_1982]. [@Zeitlin_1982] discusses the commodification and trade of obsidian during three periods of Mesoamerican prehistory in the context of distance-decay models and commodity distribution models. Critics have focused on the inadequacy of these models to capture the impact that social or political factors can have on long-distance commodity trade networks. Distance-decay models hypothesize that the abundance of a commodity will decrease proportionate to its distance from source. Commodity distribution models similarly predict the relative scarcity or abundance of non-local goods throughout the trade network [@Zeitlin_1982]. Both types of models suffer from being overly simplistic or mechanistic, without clarifying the actual mechanisms of trade and ignoring the more interesting and complex questions of the relationships between long distance trade and sociopolitical/administrative systems.  
+Archaeological proxies, like commodities, can be used to infer past political systems and trade relationships. This case study looks at obsidian artifacts from the coastal region of Tehuantepec in Western Mexico. Trace element analyses of the artifacts demonstrated that between roughly 1500 B.C. and A.D. 1500 obsidian was procured from at least 17 different obsidian sources, and that the prevalence of each of this sources varied over time [@Zeitlin_1982]. According to Zeitlin, distance-decay and commodity distribution models cannot provide satisfactory explanations that capture the potential complexity of intersocietal factors. It can be problematic for archaeologists to isolate the multiple variables that may be responsible for long distance trade and commodity exchange, therefore multiple lines of evidence should be employed. By looking at both the diachronic trace element distributions of the obsidian artifacts, and the social political histories of this region, Zeitlin was able to demonstrate that the rise and fall of various polities during the Preclassic, Classic, and Postclassic periods was well correlated to the distribution of obsidian sources across the landscape. During the Preclassic period, most obsidian was procured from the closest local sources, until the rise of the Olmec empire in the region. These local sources were fully abandoned during the Classic period in favor of obsidian from the north and west of this region, associated with a corresponding shift in ceramic traditions coming from the same directions. This could be related to the rise of the Teotihuacan state to the east and the fall of the Tajin administration to the south. The Postclassic to contact period is marked by a return to the Preclassic obsidian sources and to other obsidian sources in the southern part of the region [@Zeitlin_1982]. While this sort of approach is best suited for areas with large sample sizes and a preponderance of additional lines of evidence, Zeitlin believes this approach can also be scaled down to look at a single site or region, and the inclusion of sociopolitical variables in modeling commodity exchange in the archaeological record is necessary and feasible [@Zeitlin_1982]. 
+
+Ceramics are an excellent proxy for interaction and trade. An analysis of ceramic traditions from a region neighboring Zeitlin's case study was conducted by Sharer and Gifford (1970). This study looked at ceramics from three sites in western El Salvador as a proxy for cultural contact, specialization, trade, and interaction [@Sharer_1970]. 
 
 #Discussion of Results
 
