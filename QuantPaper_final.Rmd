@@ -1,7 +1,7 @@
 ---
 title: "Quantitative Paper"
 author: "Lauryl Zenobi"
-output: pdf_document
+output: html_document
 bibliography: quantbib.bib
 ---
 
@@ -90,15 +90,23 @@ standardization_freqwords <- JSTOR_freqwords(multiple_archives, standardization_
 ```  
 Figure 7. Words associated with "standardization" over time. 
 
-```{r standardization_frequency_counts}
+```{r standardization_frequency_counts, results='hide'}
 standard_nouns <- JSTOR_dtmofnouns(multiple_archives, word = 'standard', sparse = 1, POStag = TRUE)
 standard_freqwords <- JSTOR_freqwords(multiple_archives, standard_nouns, custom_stopwords, n = 3)
 ```  
 Figure 8. Words associated with "standard" over time. 
 
+```{r}
+standard_freqwords$q + theme_minimal() #show only q plot
+```
+
+```{r results="hide"}
+#my_pca <- JSTOR_clusterbywords(...) #reduce pca output
+```
+
 It's clear that "standard" and "standardization" produce two different frequecy plots. From 2008-2010, pottery is the fourth word most commonly printed in association with "standard". It is also a common word during the periods of 1996-1998, the most common word associated with "standard" in the 1993-1995 literature, and the fifth most common word in articles published between 2006-2007. Standardization presents an even clearer image, in 1999-2001 article, pottery is the most common word associated with "standardization", though it falls out of favor in later years. This demonstrates that pottery and standardization/standard regularly are associated in the literature data set.
 
-```{r commodity_frequency_counts}
+```{r commodity_frequency_counts, results='hide'}
 # top words per decade in articles containing 'X'
 commodity_nouns <- JSTOR_dtmofnouns(multiple_archives, word = 'commodity', sparse = 1, POStag = TRUE)
 
@@ -106,9 +114,12 @@ commodity_freqwords <- JSTOR_freqwords(multiple_archives, commodity_nouns, custo
 ```    
 Figure 9. Words associated with "commodity" over time. 
 
+```{r}
+commodity_freqwords$q + theme_minimal() #show only q plot
+```
 Pottery and commodity only appear in association within articles published between 1994-1996, however, during this time period, pottery is the second most common word associated with commodity, indicating the two appear at least 400 times in conjunction. Also useful for this project is the literature published between 2006-2008, in which trade and exchange are the two most commonly associated with commodity. The question that is driving this research assumes that commodities are trasnported as a result of increased trade and exchange.
 
-```{r pottery_frequency_counts}
+```{r pottery_frequency_counts, results='hide'}
 # top words per decade in articles containing 'X'
 pottery_nouns <- JSTOR_dtmofnouns(multiple_archives, word = 'pottery', sparse = 1, POStag = TRUE)
 
@@ -116,12 +127,19 @@ pottery_freqwords <- JSTOR_freqwords(multiple_archives, pottery_nouns, custom_st
 ```
 Figure 10. Words associated with "pottery" over time.
 
-```{r ceramics_frequency_counts}
+```{r}
+pottery_freqwords$q + theme_minimal() #show only q plot
+```
+
+```{r ceramics_frequency_counts, results='hide'}
 ceramics_nouns <- JSTOR_dtmofnouns(multiple_archives, word = 'ceramics', sparse = 1, POStag = TRUE)
 
 ceramics_freqwords <- JSTOR_freqwords(multiple_archives, ceramics_nouns, custom_stopwords, n = 3)
 ```  
 Figures 11. Words associated with "ceramics" over time. 
+```{r}
+ceramics_freqwords$q + theme_minimal() #show only q plot
+```
 
 The results of using "pottery" show that, even taking out noisey words, the data is very jumbled. The results of a frequency analysis for "ceramics" are relatively similar, possible even more jumbled. It is interesting to note that in both cases, ceramics and pottery produce too many associations to be useful, therefore, for the purpose of the paper, standardization/standard, and commodity will be utilized because they provide much more constrained data sets and are theoretically specific. 
 
