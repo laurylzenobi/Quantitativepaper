@@ -156,5 +156,5 @@ Ceramics are also useful for identifying craft specialization, one of the hallma
 #Discussion of Results
 The results of the quantitative exploratory data and the targeted readings demonstrates the utility of the text mining technique's ability to target articles that are immediately relevant to studies of standardization and commodity exchange. The quantitative data indicates a general trend towards exploring theories of commodity, specialization, and standardization overall, and a trend towards incorporating these theories into interpreting ceramics assemblages. This trend is likely a result of an overall increase in rescue archaeology and an interest in typological studies on the tail of processual archaeology. The application of these theories to ceramic studies indicates that the theory and methodology of this line of inquiry is growing and drawing from a diverse range of theories, including economics, Marxism, scales of economy, and socioeconomic systems. 
 
-
+#References 
 
