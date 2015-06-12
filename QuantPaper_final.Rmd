@@ -1,19 +1,20 @@
 ---
 title: "Quantitative Paper"
 author: "Lauryl Zenobi"
+date: "`r Sys.Date()`"
 output: html_document
 bibliography: quantbib.bib
 ---
 
 ```{r setup, echo=FALSE}
-knitr::opts_chunk$set(message=FALSE, warning=FALSE, cache=TRUE, echo=FALSE)
+knitr::opts_chunk$set(message=FALSE, warning=FALSE, cache=TRUE, echo=FALSE, tidy=FALSE)
 ```
 
 #Introduction
-For the purpose of this quantitative project I will explore the theoretical frameworks associated with several key words (see below). The data derived from this exploration will be used to improve upon the background and theoretical framework of my dissertation proposal. There is also the potential that this data will provide methodological approaches to the quantitative portion of my dissertation research. 
+For the purpose of this quantitative project I will explore the theoretical frameworks associated with several key words (see below). The data derived from this exploration will be used to improve upon the background and theoretical framework of my dissertation proposal. There is also the potential that this data will provide methodological approaches to the quantitative portion of my dissertation research, which seeks to explore the relationship between the standardization of ceramic ovens used in processing sago starch in Maluku, Indonesia, and the resulting commodification of sago in the context of the spice trade in the Banda Islands. 
 
 #Key Terms and Hypotheses
-The questions that are guiding this paper consist of the following: What is the relationship between **standardization** and **ceramics** in the archaeological literature? What is the relationship between **ceramics** and **commodities**? Has the use of these terms changed over time? What theoretical frameworks and models support these types of analyses?
+The questions that are guiding this paper consist of the following: What is the relationship between **standardization** and **ceramics** in the archaeological literature? What is the relationship between **ceramics** and **commodities**? Has the use of these terms changed over time? What theoretical frameworks and models support these types of analyses? 
 
 Due to the small sample size that is expected for these topics and study area, this project will consists of two parts. The first is a statistical analysis of the frequency of the terms identified in the preceding questions. The second part will consist of a close reading of selected articles of interest. The low numbers expected from the statistical analysis necessitate the close readings, which will be beneficial in answering higher level questions about the theoretical frameworks that were utilized in the articles of interest. 
 
@@ -31,18 +32,21 @@ Statistical analyses were conducted to determine the prevalence of each keyword 
 Figure_1 <- JSTOR_2wordcor(multiple_archives, "commodity", "standardization")
 Figure_1$plot
 ```  
+  
 Figure 1. Correlation over time between "commodity" and "standardization".
 
 ```{r}
 Figure_2 <- JSTOR_2wordcor(multiple_archives, "commodity", "ceramics")
 Figure_2$plot #2006 is a high year
 ```  
+  
 Figure 2. Correlation over time between "commodity" and "ceramics".
 
 ```{r}
 Figure_3 <- JSTOR_2wordcor(multiple_archives, "standardization", "ceramics")
 Figure_3$plot
 ```  
+  
 Figure 3. Correlation over time between "standardization" and "ceramics".
   
 The results of these plots indicate that while there may not be a large number of instances in which these sets of words appear together in the literature, each plot demonstrates that of the instances in which they do appear, the sets of words are strongly correlated. 
@@ -57,6 +61,7 @@ commodity_tbl <- Figureoneword$word_by_year
 commodity_tbl[which.max(commodity_tbl$word_ratio),]
 #url: http://www.jstor.org/stable/279900  use last digits of doi to get to link
 ```  
+  
 Figure 4. Frequency of "Commodity" over time.   
 
 ```{r 1word_standardization}
@@ -65,6 +70,7 @@ Figure1word_standardization$plot
 standardization_tbl <- Figure1word_standardization$word_by_year
 standardization_tbl[which.max(standardization_tbl$word_ratio),]
 ```  
+  
 Figure 5. Frequency of "Standardization" over time.
 
 "Ceramics" and "ceramic" were also compared to determine which keyword would be most productive. Interestingly, the two words produced markedly different articles, with ceramics producing articles that covered a wide variety of topics related to ceramic analyses, including temper analyses and studies on the physical properties of the clay materials. The wide range of topics was not suitable for this study, which seeks to pinpoint theoretical frameworks. Therefore, "ceramic" was utilized as the keyword of interest. "Pottery" was also explored, and the results were more tailored than those of "ceramics", however, the article with the highest proportion of the term was a response article, and not useful for exploring theoretical concepts or methods of explanation. 
@@ -75,11 +81,12 @@ Figure1word_ceramic$plot
 ceramic_tbl <- Figure1word_ceramic$word_by_year
 ceramic_tbl[which.max(ceramic_tbl$word_ratio),] #Sharer and Gifford
 ```  
+  
 Figure 6. Frequency of "ceramic" over time. 
 
 To determine how each key word of interest (commodity, standardization, and ceramics/pottery) cluster within the literature, a principal component analysis of each terms was conducted. The literature data was first compiled into a vector containing only nouns, as to eliminate erroneous words. Each word was then analyzed against this vector to determine what contexts the word is utilized in within the literature. Each keyword was then entered into it's own vector, so that I could analyze the words and the frequency of those words that are associated with each keyword.
 
-```{r standard_frequency_counts}
+```{r standard_frequency_counts, results='hide'}
 
 # top words per decade in articles containing 'X'
 standardization_nouns <- JSTOR_dtmofnouns(multiple_archives, word = 'standardization', sparse = 1, POStag = TRUE)
@@ -88,21 +95,16 @@ standardization_nouns <- JSTOR_dtmofnouns(multiple_archives, word = 'standardiza
 custom_stopwords <- c('archaeology', 'university', 'research', 'evidence', 'journal', 'world', 'site', 'cambridge', 'archaeol', 'area', 'region', 'period', 'analysis', 'anthropology', 'springer', 'production', 'figure', 'work', 'world', 'concept', 'human', 'middle', 'altamira', 'culture', 'record', 'citation', 'discipline', 'author', 'proportion', 'literature', 'report', 'approach', 'cambridge')
 standardization_freqwords <- JSTOR_freqwords(multiple_archives, standardization_nouns, custom_stopwords, n = 3)
 ```  
+  
 Figure 7. Words associated with "standardization" over time. 
 
 ```{r standardization_frequency_counts, results='hide'}
 standard_nouns <- JSTOR_dtmofnouns(multiple_archives, word = 'standard', sparse = 1, POStag = TRUE)
 standard_freqwords <- JSTOR_freqwords(multiple_archives, standard_nouns, custom_stopwords, n = 3)
 ```  
+
 Figure 8. Words associated with "standard" over time. 
 
-```{r}
-standard_freqwords$q + theme_minimal() #show only q plot
-```
-
-```{r results="hide"}
-#my_pca <- JSTOR_clusterbywords(...) #reduce pca output
-```
 
 It's clear that "standard" and "standardization" produce two different frequecy plots. From 2008-2010, pottery is the fourth word most commonly printed in association with "standard". It is also a common word during the periods of 1996-1998, the most common word associated with "standard" in the 1993-1995 literature, and the fifth most common word in articles published between 2006-2007. Standardization presents an even clearer image, in 1999-2001 article, pottery is the most common word associated with "standardization", though it falls out of favor in later years. This demonstrates that pottery and standardization/standard regularly are associated in the literature data set.
 
@@ -112,11 +114,9 @@ commodity_nouns <- JSTOR_dtmofnouns(multiple_archives, word = 'commodity', spars
 
 commodity_freqwords <- JSTOR_freqwords(multiple_archives, commodity_nouns, custom_stopwords, n = 3)
 ```    
+  
 Figure 9. Words associated with "commodity" over time. 
 
-```{r}
-commodity_freqwords$q + theme_minimal() #show only q plot
-```
 Pottery and commodity only appear in association within articles published between 1994-1996, however, during this time period, pottery is the second most common word associated with commodity, indicating the two appear at least 400 times in conjunction. Also useful for this project is the literature published between 2006-2008, in which trade and exchange are the two most commonly associated with commodity. The question that is driving this research assumes that commodities are trasnported as a result of increased trade and exchange.
 
 ```{r pottery_frequency_counts, results='hide'}
@@ -125,21 +125,16 @@ pottery_nouns <- JSTOR_dtmofnouns(multiple_archives, word = 'pottery', sparse = 
 
 pottery_freqwords <- JSTOR_freqwords(multiple_archives, pottery_nouns, custom_stopwords, n = 3)
 ```
+  
 Figure 10. Words associated with "pottery" over time.
-
-```{r}
-pottery_freqwords$q + theme_minimal() #show only q plot
-```
 
 ```{r ceramics_frequency_counts, results='hide'}
 ceramics_nouns <- JSTOR_dtmofnouns(multiple_archives, word = 'ceramics', sparse = 1, POStag = TRUE)
 
 ceramics_freqwords <- JSTOR_freqwords(multiple_archives, ceramics_nouns, custom_stopwords, n = 3)
 ```  
+  
 Figures 11. Words associated with "ceramics" over time. 
-```{r}
-ceramics_freqwords$q + theme_minimal() #show only q plot
-```
 
 The results of using "pottery" show that, even taking out noisey words, the data is very jumbled. The results of a frequency analysis for "ceramics" are relatively similar, possible even more jumbled. It is interesting to note that in both cases, ceramics and pottery produce too many associations to be useful, therefore, for the purpose of the paper, standardization/standard, and commodity will be utilized because they provide much more constrained data sets and are theoretically specific. 
 
@@ -147,6 +142,7 @@ The results of using "pottery" show that, even taking out noisey words, the data
 The exploratory research produced several articles of interest. Each article will be demonstrates the types of theoretical frameworks that can be applied to understanding commodities and standardization, particularly in reference to the standardization of ceramics. **Commodities** and **standardization** were determined to be the most productive keywords in which to conduct targeted literature readings, as they are the most specific terms, and can contribute the most to the theoretical and methodological background of my dissertation proposal. 
 
 Commodity studies have interested archaeologists since the rise of Marxism [@Zeitlin_1982], though it is clear from the preliminary data exploration that this topic has increased significantly since the 1970s (Figure X), likely as a result of the growth of processual archaeology [@Zeitlin_1982]. [@Zeitlin_1982] discusses the commodification and trade of obsidian during three periods of Mesoamerican prehistory in the context of distance-decay models and commodity distribution models. Critics have focused on the inadequacy of these models to capture the impact that social or political factors can have on long-distance commodity trade networks. Distance-decay models hypothesize that the abundance of a commodity will decrease proportionate to its distance from source. Commodity distribution models similarly predict the relative scarcity or abundance of non-local goods throughout the trade network [@Zeitlin_1982]. Both types of models suffer from being overly simplistic or mechanistic, without clarifying the actual mechanisms of trade and ignoring the more interesting and complex questions of the relationships between long distance trade and sociopolitical/administrative systems.  
+  
 Archaeological proxies, like commodities, can be used to infer past political systems and trade relationships. This case study looks at obsidian artifacts from the coastal region of Tehuantepec in Western Mexico. Trace element analyses of the artifacts demonstrated that between roughly 1500 B.C. and A.D. 1500 obsidian was procured from at least 17 different obsidian sources, and that the prevalence of each of this sources varied over time [@Zeitlin_1982]. According to Zeitlin, distance-decay and commodity distribution models cannot provide satisfactory explanations that capture the potential complexity of intersocietal factors. It can be problematic for archaeologists to isolate the multiple variables that may be responsible for long distance trade and commodity exchange, therefore multiple lines of evidence should be employed. By looking at both the diachronic trace element distributions of the obsidian artifacts, and the social political histories of this region, Zeitlin was able to demonstrate that the rise and fall of various polities during the Preclassic, Classic, and Postclassic periods was well correlated to the distribution of obsidian sources across the landscape. During the Preclassic period, most obsidian was procured from the closest local sources, until the rise of the Olmec empire in the region. These local sources were fully abandoned during the Classic period in favor of obsidian from the north and west of this region, associated with a corresponding shift in ceramic traditions coming from the same directions. This could be related to the rise of the Teotihuacan state to the east and the fall of the Tajin administration to the south. The Postclassic to contact period is marked by a return to the Preclassic obsidian sources and to other obsidian sources in the southern part of the region [@Zeitlin_1982]. While this sort of approach is best suited for areas with large sample sizes and a preponderance of additional lines of evidence, Zeitlin believes this approach can also be scaled down to look at a single site or region, and the inclusion of sociopolitical variables in modeling commodity exchange in the archaeological record is necessary and feasible [@Zeitlin_1982]. 
 
 Ceramics are an excellent proxy for interaction and trade. An analysis of ceramic traditions from a region neighboring Zeitlin's case study was conducted by Sharer and Gifford (1970). This study looked at ceramics from three sites in western El Salvador as a proxy for cultural contact, specialization, trade, and interaction [@Sharer_1970]. The ceramics from this region have been divided into five ceramic complexes, spanning from 1100 BC to the time of Spanish contact. These ceramic complexes were then compared to ceramic traditions from the Maya lowlands using a type-variety approach in which the ceramics were typed based on similarities both morphologically and in production style. The two major ceramic groups that were produced by this analysis are remarkably similar to ceramic traditions in the Maya lowlands, to the point that many of the ceramics were indistinguishable from the Maya variety. These similarities are attributed to a common "ceramic idea pool", from which geographically distanced but culturally related groups draw their ceramic styles [@Sharer_1970]. The authors hypothesize that the case sites were integrated into a panregional ceramic sphere, defined as the phenomenon in which two or more social complexes share a the majority of their ceramic styles at a typological level. Implied in this definition is a high degree of standardizaton of the ceramic styles within this sphere. The social relationships within this sphere, which allow it to function, can be thought of as the "ceramic system". This conceptual framework is useful in the production of type-level discrete units, which can then be compared against similarly defined units to comprehend the larger ceramic sphere of a region [@Sharer_1970]. 
